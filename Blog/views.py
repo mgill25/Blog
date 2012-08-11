@@ -1,11 +1,7 @@
 # views.py
 from flask import request, session, g, redirect, url_for, \
         abort, render_template, flash, jsonify, redirect
-
-from flask import Flask
-
-app = Flask(__name__)
-app.config.from_envvar('BLOG_SETTINGS', silent=True)
+from Blog import app
 
 def connect_db():
     pass
@@ -15,7 +11,7 @@ def init_db():
  
 @app.route('/')
 def index():
-    pass
+    return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -34,7 +30,7 @@ def login():
 # This will be the main user dashboard used for adding and editing new posts.
 @app.route('/dashboard')
 def dashboard():
-    pass
+    return render_template('dashboard.html')
 
 # Add new posts.
 @app.route('/add', methods=['POST'])
