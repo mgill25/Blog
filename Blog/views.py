@@ -5,8 +5,7 @@ from flask import request, session, g, redirect, url_for, \
 from flask import Flask
 
 app = Flask(__name__)
-app.config.from_envvar('BLOG_SETTINGS', silent=True)     # load the
-# configuration from the environment
+app.config.from_envvar('BLOG_SETTINGS', silent=True)
 
 def connect_db():
     pass
@@ -52,6 +51,3 @@ def remove():
 def logout():
     pass
 
-
-if __name__ == '__main__':
-    app.run()
