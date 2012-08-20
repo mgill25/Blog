@@ -2,18 +2,41 @@
 from flask import request, session, g, redirect, url_for, \
         abort, render_template, flash, jsonify, redirect
 from Blog import app
+from Blog.models import db, User, Post, Category
+from flaskext.bcrypt import generate_password_hash, check_password_hash
 
-def connect_db():
-    pass
+def create_user(username, email, password):
+    """Takes a bcrypt object for password encoding."""
+    password_hash = generate_password_hash(password, rounds=10)
+    try:
+        new_user = User(username=username, email=email, password=password_hash)
+        db.session.add(new_user)
+        db.session.commit()
+    except Exception as e:
+        app.logger.debug('%s - %s' %(type(e), str(e)))
 
-def init_db():
-    pass
- 
+"""
+def create_post(title, body, draft, category, post_on):
+    try:
+        new_post = Post(title=title, body=body, draft=draft, category=category, post_on=post_on)
+        db.session.add(new_post)
+        db.session.commit()
+    except Exception as e:
+        app.logger.debug('%s - %s' %(type(e), str(e)))
+"""
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    """Show recent posts on the main page, starting from most recent."""
+    try:
+        posts = Post.query.filter_by(draft=False).all()  # all the non-draft posts.
+        return render_template('index.html', posts=posts)
+    except Exception as e:
+        app.logger.debug('%s - %s' %(type(e), str(e)))
+        abort(404)
 
-@app.route('/login', methods=['GET', 'POST'])
+
+@app.route('/login', methods=['POST'])
 def login():
     error = None
     if request.method == 'POST':
@@ -25,7 +48,8 @@ def login():
             session['logged_in'] = True
             flash("You were logged in!")
             return redirect(url_for('dashboard'))
-    return render_template('login.html', error=error)
+    print error
+    return redirect(url_for('dashboard', error=error))
 
 # This will be the main user dashboard used for adding and editing new posts.
 @app.route('/dashboard')

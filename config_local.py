@@ -4,4 +4,4 @@ USERNAME = 'admin'
 PASSWORD = 'default'
 DATABASE = '/tmp/blog.db'
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'
+SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'      # Don't modify at runtime.

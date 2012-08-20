@@ -8,15 +8,34 @@
 
 {% block body %}
 <div class="main">
-    <h3>Log In</h3>
+    <h4>Log In</h4>
     <form action="{{ url_for('login') }}" method=post>
         <dl>
-            <dt>Username: 
+            <dt>Username:
             <dd><input type=text name=username>
             <dt>Password:
-            <dd><input type=submit value=login>
+            <dd><input type=text name=login>
+            <dt>Login
+            <dd><input type=submit >
         </dl>
     </form>
+
+    <section id="posts">
+        {% for post in posts %}
+            {% if post %}
+                <header>
+                    <h2> post.title </h2>
+                </header>
+                <article>
+                    <div class="posts">
+                        <p>post.body </p>
+                    </div>
+                </article>
+            {% else %}
+                <h3> Nothing to see here. :( </h3>
+            {% endif %}
+        {% endfor %}
+
 </div>
 
 {% endblock body %}

@@ -32,20 +32,25 @@ class User(db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
-    body = db.Column(db.Text)
+    body = db.Column(db.Text, default="")
+    draft = db.Column(db.Boolean(), index=True, default=True)
     post_on = db.Column(db.DateTime(timezone=pytz.timezone('UTC')))
-    # post_on = db.Column(db.DateTime)
-
+    updated_on = db.Column(db.DateTime(timezone=pytz.timezone('UTC')))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', backref= db.backref('posts',lazy='dynamic'))
 
-    def __init__(self, title, body, category, post_on = None):
+    def __init__(self, title, body, draft=False, category=None, post_on=None):
         self.title = title
         self.body = body
+        self.draft = draft
         if post_on is None:
             post_on = datetime.utcnow()
         self.post_on = post_on
         self.category = category
+
+    def update_post(updated_on=None):
+        if updated_on is not None:
+            self.updated_on = updated_on
 
     def __repr__(self):
         return '<Post %r>' %self.title
@@ -61,3 +66,9 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Category %r>' %self.name
+
+# Create the database
+try:
+    db.create_all()
+except Exception as e:
+    app.logger.debug("%s - %s" %(type(e), str(e)))
