@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    {% block title %}<title>Manish Gill's Blog</title> {% endblock title %}
+
+    {% block head %}
+    {% endblock head %}
+</head>
+
+<div class=metanav>
+        {% if not session.logged_in %}
+            <a href="{{ url_for('login') }}"> Login </a>
+        {% else %}
+            <a href="{{ url_for('logout') }}"> Logout </a>
+        {% endif %}
+</div>
+
+    <!-- Display flashed messages, if there are any -->
+    {% for message in get_flashed_messages() %}
+        <div class=flash>{{ message }} </div>
+    {% endfor %}
+
+<body>
+    {% block body %}
+    {% endblock body %}
+</body>
+
+</html>
+
+
+

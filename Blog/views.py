@@ -36,8 +36,13 @@ def index():
         abort(404)
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET'])
 def login():
+    return render_template('login.html')
+
+# This will be the main user dashboard used for adding and editing new posts.
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard():
     error = None
     if request.method == 'POST':
         if request.form['username'] != app.config['USERNAME']:
@@ -47,14 +52,10 @@ def login():
         else:
             session['logged_in'] = True
             flash("You were logged in!")
-            return redirect(url_for('dashboard'))
-    print error
-    return redirect(url_for('dashboard', error=error))
-
-# This will be the main user dashboard used for adding and editing new posts.
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
+            return render_template('dashboard.html')
+    if error != None:
+        app.logger.debug(error)
+    return render_template('dashboard.html', error=error)
 
 # Add new posts.
 @app.route('/add', methods=['POST'])
@@ -69,5 +70,6 @@ def remove():
 
 @app.route('/logout')
 def logout():
-    pass
-
+    session.pop('logged_in', None)
+    flash("You were logged out!")
+    return redirect(url_for('index'))

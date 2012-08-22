@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'inside.html' %}
 {% block title %} <title>Dashboard</title> {% endblock title %}
 
 {% block head %}
@@ -9,8 +9,31 @@
 
 {% block body %}
 <body>
-    <p><strong>Dashboard</strong></p>
-    <p>This will contain the main admin interface.</p>
+    {% if session.logged_in %}
+        <input type=submit value="Add new post">
+        <input type=submit value="Edit post">
+        <input type=submit value="Delete post">
+        
+        <!-- Idea: Can we make a markdown editor in the browser? -->
+
+        <!--   Add posts here -->
+        <form action="{{ url_for('add') }}" method=post class=add>
+            <dl> 
+                <dt> Title
+                <dd> <input type=text size=30 name=title>
+                <dt> Text
+                <dd> <textarea name=text rows=15 cols=120> </textarea>
+                <dd> <input type=submit value=Publish>
+                    <input type=submit value=Preview> 
+                    <input type=checkbox value=Draft name=Draft id=Draft> 
+                    <label for=Draft>Draft</label>
+
+            </dl>
+        </form>
+    
+    {% else %}
+        <p> Error. You are not logged in! </p>
+    {% endif %}
 </body>
 {% endblock %}
 

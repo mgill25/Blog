@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
+{% extends 'inside.html' %}
 {% block head %}
 <head>
     <title> Logged In! </title>
     <h3> Welcome! :)</h3>
 </head>
 {% endblock head %}
-
 {% block body %}
+<div class="main">
+    <h4>Log In</h4>
+    <form action="{{ url_for('dashboard') }}" method=post>
+        <dl>
+            <dt>Username:
+            <dd><input type=text name=username>
+            <dt>Password:
+            <dd><input type=password name=password>
+            <dt>Login
+            <dd><input type=submit >
+        </dl>
+    </form>
 {% endblock body %}
