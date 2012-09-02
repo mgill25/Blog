@@ -4,7 +4,7 @@ from flask import request, session, g, redirect, url_for, \
 from Blog import app
 from Blog.models import db, User, Post, Category
 from flaskext.bcrypt import generate_password_hash, check_password_hash
-
+from datetime import datetime
 def create_user(username, email, password):
     """Takes a bcrypt object for password encoding."""
     password_hash = generate_password_hash(password, rounds=10)
@@ -33,7 +33,7 @@ def index():
         return render_template('index.html', posts=posts)
     except Exception as e:
         app.logger.debug('%s - %s' %(type(e), str(e)))
-        abort(404)
+        #abort(404)
 
 
 @app.route('/login', methods=['GET'])
@@ -60,7 +60,23 @@ def dashboard():
 # Add new posts.
 @app.route('/add', methods=['POST'])
 def add():
-    pass
+    # Add the entry to the database
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['text']
+        #print request.form.items()
+        
+        # Don't show drafts on the index page.
+        if request.form.has_key('draft'):
+            draft=True
+        else:
+            draft=False
+        post_on = datetime.now()
+        category = Category(name='default')
+        form_data = Post(title,body,draft,category,post_on)
+        db.session.add(form_data)
+        db.session.commit()
+    return redirect(url_for('index'))
 
 # Remove an entry.
 @app.route('/delete', methods=['POST'])

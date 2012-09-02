@@ -3,19 +3,19 @@
 {% extends 'base.html' %}
 {% block head %}
 <head>
-    <h1> Welcome </h1>
+    <h1> Awesomeness Blog </h1>
 </head>
 {% endblock head %}
 {% block body %}
 <section id="posts">
-        {% for post in posts %}
+        {% for post in posts|reversed %}
             {% if post %}
                 <header>
-                    <h2> post.title </h2>
+                    <h2> {{ post.title }} </h2>
                 </header>
                 <article>
                     <div class="posts">
-                        <p>post.body </p>
+                        <p> {{ post.body }} </p>
                     </div>
                 </article>
             {% else %}

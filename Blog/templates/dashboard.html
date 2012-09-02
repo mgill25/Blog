@@ -18,19 +18,19 @@
 
         <!--   Add posts here -->
         <form action="{{ url_for('add') }}" method=post class=add>
-            <dl> 
+            <dl>
                 <dt> Title
                 <dd> <input type=text size=30 name=title>
                 <dt> Text
                 <dd> <textarea name=text rows=15 cols=120> </textarea>
-                <dd> <input type=submit value=Publish>
-                    <input type=submit value=Preview> 
-                    <input type=checkbox value=Draft name=Draft id=Draft> 
+                <dd> <input type=submit value=Publish name=publish>
+                    <input type=submit value=Preview name=preview>
+                    <input type=checkbox value=Draft name=draft id=Draft>
                     <label for=Draft>Draft</label>
 
             </dl>
         </form>
-    
+
     {% else %}
         <p> Error. You are not logged in! </p>
     {% endif %}
