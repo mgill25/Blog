@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block head %}
+
+<head> 
+    <h1>Unpublished Drafts</h1>
+</head>
+{% endblock head %}
+
+{% block body %}
+<section id='posts'>
+    {% for post in posts|reversed %}
+        {% if post %}
+            <header>
+                <h2 class="post_title"> {{ post.title }} </h2>
+            </header>
+            <article>
+                <div class="post_body">
+                    <p> {{ post.body }} </p> 
+                </div>
+            </article>
+
+        {% else %}
+            <h3> Nothing to see here. :( </h3>
+        {% endif %}
+    {% endfor %}
+</section>
+
+{% endblock body %}
+</html>

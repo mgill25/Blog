@@ -65,14 +65,9 @@ def add():
         title = request.form['title']
         body = request.form['text']
         #print request.form.items()
-        
-        # Don't show drafts on the index page.
-        if request.form.has_key('draft'):
-            draft=True
-        else:
-            draft=False
+        draft = True if request.form.has_key('draft') else False   # don't show drafts on the index page
+        category = Category(request.form['category']) if request.form.has_key('category') else 'default'
         post_on = datetime.now()
-        category = Category(name='default')
         form_data = Post(title,body,draft,category,post_on)
         db.session.add(form_data)
         db.session.commit()
@@ -89,3 +84,13 @@ def logout():
     session.pop('logged_in', None)
     flash("You were logged out!")
     return redirect(url_for('index'))
+
+@app.route('/drafts')
+def drafts():
+    """Query the posts where the draft field is set to True"""
+    try:
+        posts = Post.query.filter_by(draft=True).all()
+        return render_template('drafts.html', posts=posts)
+    except Exception as e:
+        app.logger.debug('%s - %s' %(type(e), str(e)))
+

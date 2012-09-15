@@ -11,10 +11,10 @@
         {% for post in posts|reversed %}
             {% if post %}
                 <header>
-                    <h2> {{ post.title }} </h2>
+                    <h2 class="post_title"> {{ post.title }} </h2>
                 </header>
                 <article>
-                    <div class="posts">
+                    <div class="post_body">
                         <p> {{ post.body }} </p>
                     </div>
                 </article>
@@ -23,7 +23,6 @@
             {% endif %}
         {% endfor %}
 </section>
-</div>
 
 {% endblock body %}
 </html>

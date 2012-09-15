@@ -1,0 +1,25 @@
+/* main css */
+* {
+    padding: 0;
+}
+html, body{
+    font: normal 14px Arial, sans-serif;
+    background-color: #eee; /* #F0FFFF;*/
+    height: 100%;
+    widows: 100%;
+}
+h1{
+    font-family: Arial, Helvetica, sans-serif, "Lucida Grande";
+    font-size: 30px;
+}
+
+.post_title{
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    border-bottom: 2px solid #eee;
+}
+
+.post_body{
+    bottom-border: 3px solid #ccc;
+}
