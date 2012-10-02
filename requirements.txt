@@ -9,3 +9,5 @@ flask_sqlalchemy==0.16
 Jinja2==2.6
 Werkzeug==0.8.3
 pytz==2012c
+cssmin==0.1.4
+markdown==2.1.1

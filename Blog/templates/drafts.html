@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 {% block head %}
 
-<head> 
+<head>
     <h1>Unpublished Drafts</h1>
 </head>
 {% endblock head %}
@@ -11,15 +11,24 @@
 <section id='posts'>
     {% for post in posts|reversed %}
         {% if post %}
-            <header>
-                <h2 class="post_title"> {{ post.title }} </h2>
-            </header>
-            <article>
-                <div class="post_body">
-                    <p> {{ post.body }} </p> 
-                </div>
-            </article>
+            <li id="post-{{ post.id }}">
+                <h3>
+                    <form id="publish" method="POST" action="{{ url_for('add') }}">
+                        <input type="hidden" name="add_input" value="{{ post.id }}" />
+                        <button onclick="document.getElementById('publish').submit();">Publish</a>
+                    </form>
+                        <form id="delete" method="POST" action="{{ url_for('delete') }}">
+                            <input type="hidden" name="delete_input" value="bar" />
+                            <button onclick="document.getElementById('delete').submit();" class="delete" data-confirm="Are you sure?" rel="nofollow">Delete</a>
+                        </form>
+                </h3>
 
+                <article>
+                    <div class="post_body">
+                        <p> {{ post.body }} </p>
+                    </div>
+                </article>
+            </li>
         {% else %}
             <h3> Nothing to see here. :( </h3>
         {% endif %}

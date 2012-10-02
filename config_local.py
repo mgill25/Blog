@@ -2,6 +2,7 @@
 DEBUG = True
 USERNAME = 'admin'
 PASSWORD = 'default'
-DATABASE = '/tmp/blog.db'
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'      # Don't modify at runtime.
+SECRET_KEY = '\xf4\xa1\xfc&\x10\x94\xc9%\xe2\xe9\x14H\xcb\x86J\xfca\xe7\xe6;\x9a\xdf\xe0/'
+
+SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'

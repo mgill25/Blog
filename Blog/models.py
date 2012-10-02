@@ -1,7 +1,7 @@
 from Blog import app
 from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
-import pytz
+import pytz, markdown
 
 db = SQLAlchemy(app)
 

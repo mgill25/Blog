@@ -20,3 +20,6 @@ config
 *.min.css
 config*
 fabfile*
+*.sublime-project
+*.sublime-workspace
+TODO.txt
